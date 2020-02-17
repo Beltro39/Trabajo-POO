@@ -1,36 +1,73 @@
 package trabajo.poo;
+import java.awt.AWTException;
 import java.util.*;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+// Esta es la clase menu del programa
 public class MenuDeConsola {
-    String mensajeMenu;
+    //atributos
+    Scanner input= new Scanner(System.in);
+    private String mensajeMenu;
+    ArrayList<OpcionDeMenu> listaOpciones= new ArrayList();
+    private int i= 0;
+    private Regresar menuAnterior;
+    //Constructores
     MenuDeConsola(String mensajeMenu){
       this.mensajeMenu= mensajeMenu;
     }
-    
-    ArrayList<OpcionDeMenu> listaOpciones= new ArrayList();
-    
-    
+     //metodos
     public void añadirOpcion(OpcionDeMenu op){
       listaOpciones.add(op);
     }
     
     public void lanzarMenu(){
        System.out.println(this);
-       int opcionElegida= input.nextInt();
-       listaOpciones.get(opcionElegida).ejecutar();
+       try{
+         int opcionElegida= input.nextInt(); 
+         listaOpciones.get(opcionElegida).ejecutar();
+       }catch(Exception e){
+           try {
+             RobotPresiona.limpiarpantalla();
+         } catch (AWTException ex) {
+             Logger.getLogger(SiguienteMenu.class.getName()).log(Level.SEVERE, null, ex);
+         }
+          System.out.println("Elija una opcion valida, presione Enter para reintenrar");
+          String enterKey= input.nextLine();
+          String enterKey2= input.nextLine();
+          if(enterKey2.isEmpty()){
+            try {
+             RobotPresiona.limpiarpantalla();
+         } catch (AWTException ex) {
+             Logger.getLogger(SiguienteMenu.class.getName()).log(Level.SEVERE, null, ex);
+         }  
+            this.lanzarMenu();
+          }
+
+       }
+       
     }
     
     public String toString(){
       Iterator itr= listaOpciones.iterator();
       String menu= mensajeMenu;
+      int i = 0;
       while(itr.hasNext()){
-        int i = 0;
         menu= menu+ "\n"+ itr.next().toString()+": "+ i;
+        i+= 1;
       }  
-      
+      this.i= i;
       return menu ;
     }
     
-    Scanner input= new Scanner(System.in);
+    public void setMensajeMenu(String mensaje){
+      this.mensajeMenu+= "\n"+ mensaje;
+    }
+    
+    public void Escuchar(){}
+    
+    //public void menuAnteriorMetodo(MenuDeConsola menuAnterior){
+      //this.menuAnterior= menuAnterior;
+    //}
+    
 }
 

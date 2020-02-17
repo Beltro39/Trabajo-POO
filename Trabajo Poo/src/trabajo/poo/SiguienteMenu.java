@@ -1,4 +1,9 @@
 package trabajo.poo;
+
+import java.awt.AWTException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class SiguienteMenu extends OpcionDeMenu {
      MenuDeConsola proximoMenu;
      String nombreOpcion;
@@ -10,8 +15,13 @@ public class SiguienteMenu extends OpcionDeMenu {
     
    
     public void ejecutar(){
-     System.out.print("\u001b[2J");  
-      
+         try {
+             RobotPresiona.limpiarpantalla();
+         } catch (AWTException ex) {
+             Logger.getLogger(SiguienteMenu.class.getName()).log(Level.SEVERE, null, ex);
+         }
+      //proximoMenu.menuAnterior= this;   
+     // proximoMenu.menuAnteriorMetodo()   
       proximoMenu.lanzarMenu();
     }
     
