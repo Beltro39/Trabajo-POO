@@ -10,7 +10,7 @@ public class MenuDeConsola {
     ArrayList<OpcionDeMenu> listaOpciones= new ArrayList();
     
     
-    public void aÃ±adirOpcion(OpcionDeMenu op){
+    public void añadirOpcion(OpcionDeMenu op){
       listaOpciones.add(op);
     }
     
